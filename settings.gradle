@@ -1,0 +1,10 @@
+rootProject.name = 'ShmooTube'
+include 'Database'
+include 'ITube'
+include 'ITube:Database'
+findProject(':ITube:Database')?.name = 'DataBase'
+include 'ITube:Domain'
+findProject(':ITube:Domain')?.name = 'Domain'
+include 'ITube:Online_app'
+findProject(':ITube:Online_app')?.name = 'Online_app'
+

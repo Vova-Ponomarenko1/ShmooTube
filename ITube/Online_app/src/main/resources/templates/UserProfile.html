@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>channel</title>
+</head>
+<body>
+<!-- Шапка сторінки -->
+<header>
+  <div class="header-content">
+    <button id="toggleNav">Меню</button>
+    <div class="logo-Itybe">
+      <a href="/ITube/headSide">
+        <img src="/static/img/ITubeIcon.png" alt="ITube Icon" id="itubeIcon">
+      </a>
+    </div>
+
+    <div>
+      <form class="search-form">
+        <div class="search-container">
+          <input type="text" name="searchText" placeholder="Search...">
+          <button type="submit">Find</button>
+        </div>
+      </form>
+    </div>
+
+    <nav th:if="${not hideRegisterButton}">
+      <ul>
+        <li>
+          <a class="register" href="/new-user">Sign up</a>
+        </li>
+        <li >
+          <a class="login" href="/login">Log in</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="header-avatar-user" th:if="${hideRegisterButton}">
+      <img th:src="${avatarUrl}" alt="Avatar" id="userAvatar">
+      <script th:if="${hideRegisterButton}">
+        const userAvatarElement = document.getElementById("userAvatar");
+
+        if (userAvatarElement) {
+          fetch("/ITube/getUserAvatar", {
+            method: "GET",
+            headers: {
+            }
+          })
+                  .then(response => {
+                    if (response.ok) {
+                      return response.text();
+                    } else {
+                      throw new Error("Не вдалося отримати фото користувача");
+                    }
+                  })
+                  .then(base64Image => {
+                    userAvatarElement.src = base64Image;
+                  })
+                  .catch(error => {
+                    console.error(error);
+                  });
+        }
+      </script>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="sidebar">
+  <!-- посилання для навігації -->
+  <ul>
+    <li><a href="/home">Головна</a></li>
+    <li><a href="/about">Про нас</a></li>
+    <li><a href="/contact">Контакти</a></li>
+  </ul>
+</div>
+
+
+<!-- Основний контент сторінки -->
+<div class="channel-content">
+  <div class="user-channel-banner">
+
+  </div>
+</div>
+
+
+
+
+
+
+
+</body>
+</html>

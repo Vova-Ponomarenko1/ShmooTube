@@ -1,0 +1,309 @@
+/* Загальний контейнер для відео */
+.VideoBox {
+    width: 1092px;
+    height: 614px;
+    margin: 60px auto 0;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    float: left;
+}
+
+#videoPlayer {
+    width: 100%;
+    height: 100%;
+}
+
+/* Центрування тексту у відеоплеєрі, якщо браузер не підтримує відео */
+#videoPlayer::after {
+    content: "Your browser does not support the video tag.";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    color: #fff;
+}
+
+.video-title {
+    font-size: 24px;
+    margin: 0;
+    padding: 10px 0;
+    color: #333;
+}
+
+/* Стилі для імені автора */
+.user-info {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.username {
+    font-size: 16px;
+    margin: 5px;
+    color: #333;
+}
+
+.subscribers {
+    font-size: 14px;
+    margin: 5px;
+    color: #666;
+}
+
+/* Стилі для контейнера з кнопкой */
+.subscribers-bottom-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* Стилі для кнопки */
+.subscribers-bottom {
+    background-color: #FF0000;
+    color: #FFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.subscribers-bottom:hover {
+    background-color: #CC0000;
+}
+
+
+/* Стилі для блоку рекомендацій */
+.recommendations {
+    float: right;
+    width: 380px;
+    margin-top: 20px;
+    padding-left: 30px;
+}
+
+
+/* Стилі для мініатюр відео в блоку рекомендацій */
+.recommendations .video-thumbnail {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+    overflow: hidden;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.recommendations .video-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.recommendations .video-thumbnail img {
+    width: 168px;
+    height: 94px;
+    margin-right: 10px;
+}
+
+.recommendations .video-thumbnail .text-container {
+    flex-grow: 1; /* Займає доступний простір */
+}
+
+.recommendations .video-thumbnail .video-title {
+    margin: 0 0 4px 0;
+    display: block;
+    font-family: "Roboto","Arial",sans-serif;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    font-weight: 500;
+    overflow: hidden;
+    max-height: 4rem;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+
+/* Стили для форми комментарів*/
+.comment-form {
+    background-color: #F9F9F9;
+    border: 1px solid #E0E0E0;
+    border-radius: 3px;
+    padding: 16px;
+    margin-top: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.comment-form:hover {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.comment-form h3 {
+    font-size: 18px;
+    margin: 0 0 16px;
+    font-weight: 500;
+}
+
+.comment-form label {
+    font-weight: 500;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    border: 1px solid #E0E0E0;
+    border-radius: 3px;
+    resize: vertical;
+    min-height: 80px;
+    font-size: 14px;
+}
+
+.comment-form button {
+    background-color: #FF0000;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.comment-form button:hover {
+    background-color: #CC0000;
+}
+
+
+/* Стилі для контейнера коментарів */
+.comments {
+    margin-top: 20px;
+}
+
+/* Стилі для окремого коментаря */
+.comment {
+    display: flex;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.comment img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.comment-content {
+    flex-grow: 1;
+}
+
+.comment-author {
+    font-weight: bold;
+    margin: 0;
+}
+
+.comment-text {
+    margin: 5px 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Стилі для заголовка коментарів */
+.comments h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Стилі для кнопки завантаження додаткових коментарів (якщо є) */
+.load-more-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.load-more-button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Стилі для контейнера опису відео */
+.video-description {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Стилі для короткого опису */
+#short-description {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Стилі для повного опису (прихований за замовчуванням) */
+#full-description {
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 10px 0;
+    display: none; /* Початково ховаємо повний опис */
+}
+
+/* Стилі для кнопки "Повний опис" */
+#more-button {
+    background-color: #33aaff;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 3px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+    margin: 5px 0;
+}
+
+#more-button:hover {
+    background-color: #707070;
+    transform: scale(1.05); /* Збільшуємо кнопку на 5% при наведенні */
+}
+
+#more-button:focus {
+    outline: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

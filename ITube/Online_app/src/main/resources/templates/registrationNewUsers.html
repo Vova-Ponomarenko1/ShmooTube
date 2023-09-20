@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Реєстрація</title>
+</head>
+<body>
+<h1>Реєстрація</h1>
+<form id="registrationForm" action="/register" method="post" enctype="multipart/form-data">
+  <label for="username">Ім'я користувача:</label>
+  <input type="text" id="username" name="username" required><br>
+
+  <label for="password">Пароль:</label>
+  <input type="password" id="password" name="password" required><br>
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required><br>
+
+  <label for="avatar">Аватар:</label>
+  <input type="file" id="avatar" name="avatar" accept="image/*"><br>
+
+  <button type="submit">Зареєструватися</button>
+</form>
+
+<script>
+  const registrationForm = document.getElementById('registrationForm');
+  registrationForm.addEventListener('submit', function (event) {
+    event.preventDefault(); // Зупинити стандартну поведінку форми
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const email = document.getElementById('email').value;
+    const avatar = document.getElementById('avatar').files[0]; // Отримати вибраний файл
+
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('password', password);
+    formData.append('email', email);
+    formData.append('avatar', avatar); // Додати файл до FormData
+
+    fetch('/register', {
+      method: 'POST',
+      body: formData
+    })
+            .then(response => response.json())
+            .then(data => {
+              console.log(data);
+              // Додайте обробник для виведення повідомлення про успішну реєстрацію
+              alert('Користувач зареєстрований!');
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              // Додайте обробник для виведення повідомлення про помилку реєстрації
+              alert('Помилка реєстрації');
+            });
+  });
+</script>
+</body>
+</html>
+

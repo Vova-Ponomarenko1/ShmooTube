@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Video</title>
+</head>
+<body>
+    <h1>Upload Video</h1>
+<form action="/ITube/upload" method="post" enctype="multipart/form-data">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required><br><br>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" rows="4" required></textarea><br><br>
+
+    <label for="file">Video File:</label>
+    <input type="file" id="file" name="file" accept=".mp4, .avi, .mov" required><br><br>
+
+    <label for="imageFile">Image File:</label>
+    <input type="file" id="imageFile" name="imageFile" accept=".jpg, .png, .jpeg" required><br><br>
+
+    <input type="submit" value="Upload Video">
+</form>
+</body>
+</html>

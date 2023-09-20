@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/static/css/header.css">
+  <link rel="stylesheet" href="/static/css/videos.css">
+  <script src="/static/js/HederScript.js"></script>
+  <title>Відео</title>
+
+</head>
+<body>
+<!-- Шапка сторінки -->
+<header>
+  <div class="header-content">
+    <button id="toggleNav">Меню</button>
+    <div class="logo-Itybe">
+      <a href="/ITube/headSide">
+        <img src="/static/img/ITubeIcon.png" alt="ITube Icon" id="itubeIcon">
+      </a>
+    </div>
+
+    <div>
+      <form class="search-form">
+        <div class="search-container">
+          <input type="text" name="searchText" placeholder="Search...">
+          <button type="submit">Find</button>
+        </div>
+      </form>
+    </div>
+
+    <nav th:if="${not hideRegisterButton}">
+      <ul>
+        <li>
+          <a class="register" href="/new-user">Sign up</a>
+        </li>
+        <li >
+          <a class="login" href="/login">Log in</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="header-avatar-user" th:if="${hideRegisterButton}">
+      <img th:src="${avatarUrl}" alt="Avatar" id="userAvatar">
+      <script th:if="${hideRegisterButton}">
+        const userAvatarElement = document.getElementById("userAvatar");
+
+        if (userAvatarElement) {
+          fetch("/ITube/getUserAvatar", {
+            method: "GET",
+            headers: {
+            }
+          })
+                  .then(response => {
+                    if (response.ok) {
+                      return response.text();
+                    } else {
+                      throw new Error("Не вдалося отримати фото користувача");
+                    }
+                  })
+                  .then(base64Image => {
+                    userAvatarElement.src = base64Image;
+                  })
+                  .catch(error => {
+                    console.error(error);
+                  });
+        }
+      </script>
+    </div>
+
+  </div>
+
+
+  </div>
+</header>
+
+<div class="sidebar">
+  <!--  навігація -->
+  <ul>
+    <li><a href="/home">Головна</a></li>
+    <li><a href="/about">Про нас</a></li>
+    <li><a href="/contact">Контакти</a></li>
+  </ul>
+</div>
+<div class="VideoBox">
+  <video id="videoPlayer" width="320" height="240" controls th:data-video-url="${videoUrl}">
+    <source th:attr="src=${videoUrl}" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="VideoInfo">
+    <div class="video-title-box">
+      <h2 class="video-title" th:text="${videoInfo.getTitle()}">Video Title</h2>
+    </div>
+    <div class="user-info">
+      <img class="avatar" th:src="${userInfo.getAvatar_Base64()}" alt="User Avatar">
+      <div class="user-description">
+        <p class="username" th:text="${userInfo.getUsername()}">Author Name</p>
+        <p class="subscribers">10</p>
+      </div>
+      <div class="subscribers-bottom-box">
+        <button class="subscribers-bottom">subscribers</button>
+      </div>
+    </div>
+
+
+
+  </div>
+  <div class="video-description">
+    <p></p>
+    <p id="short-description">Опис</p>
+    <p id="full-description" class="collapsed" th:text="${videoInfo.getDescription()}">
+
+    </p>
+    <button id="more-button">Повний опис</button>
+  </div>
+
+  <div class="comment-form" th:if="${hideRegisterButton}">
+    <h3>Оставить комментарий</h3>
+    <form id="commentForm">
+      <div class="form-group">
+        <label for="commentText">Текст комментария:</label>
+        <textarea class="form-control" id="commentText" rows="4" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+  </div>
+
+  <div class="comments">
+    <h3>Комментарии</h3>
+    <div id="commentsList">
+      <div th:each="comment : ${comments}" class="comment">
+        <img th:src="${comment.commentatorAvatar}" alt="Аватар пользователя">
+        <div class="comment-content">
+          <p class="comment-author" th:text="${comment.commentatorName}">Ім'я Пользователя</p>
+          <p class="comment-text" th:text="${comment.commentText}">Текст комментария</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="/static/js/videos.js"></script>
+
+
+
+
+<!-- Рекомендації -->
+<div class="recommendations">
+  <h2>Рекомендації</h2>
+  <div th:each="recommendedVideo : ${recommendedVideos}" class="video-thumbnail">
+    <a th:href="@{'/ITube/video/' + ${recommendedVideo.id}}" class="video-link">
+      <img th:src="${recommendedVideo.dataUri}" alt="Recommended Video" />
+      <div class="text-container">
+        <h2 class="video-title" th:text="${recommendedVideo.title}" th:maxlength="35"></h2>
+      </div>
+    </a>
+  </div>
+</div>
+
+
+
+</body>
+</html>

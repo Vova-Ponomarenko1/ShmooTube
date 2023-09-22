@@ -2,7 +2,7 @@ package org.example.Video;
 
 public class Thumbnail {
     private long id;
-    private byte[] thumbnail;
+    private byte[] thumbnail;//
 
     private String dataUri;
 

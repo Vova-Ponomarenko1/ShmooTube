@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>channel</title>
+  <link rel="stylesheet" href="/static/css/userProfile.css">
+    <link rel="stylesheet" href="/static/css/header.css">
+    <script src="/static/js/HederScript.js"></script>
 </head>
 <body>
 <!-- Шапка сторінки -->
@@ -76,9 +79,14 @@
 
 
 <!-- Основний контент сторінки -->
+<div class="user-banner">
+  <img src="/static/img/chapka_2560x1440.jpg">
+</div>
 <div class="channel-content">
   <div class="user-channel-banner">
-
+    <img th:src="${userAvatar}" alt="GameOver:/">
+    <p class="user-name" th:text="${userName}"></p>
+    <p class="subscribers"></p>
   </div>
 </div>
 

@@ -53,9 +53,4 @@ public class HeadSideController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
-
-
-
 }

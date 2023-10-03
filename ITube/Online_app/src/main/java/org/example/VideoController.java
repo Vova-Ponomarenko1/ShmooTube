@@ -45,7 +45,7 @@ public class VideoController {
         this.videoService = videoService;
     }
 
-    @GetMapping("/video")
+    @GetMapping("/video") // new video
     public ModelAndView viewVideoPage() {
         return new ModelAndView("UploadVideo");
     }
@@ -58,7 +58,7 @@ public class VideoController {
         videoService.saveVideo(title, description, file, photo);
         return ResponseEntity.ok("Video uploaded successfully.");
     }
-    //ПОДУМАТИ ЯК УБРАТЬ ДУБЛЯЖ
+    //УБРАТЬ ДУБЛЯЖ
     @GetMapping("/video/{videoId}")
     public ModelAndView viewVideo(@PathVariable Long videoId, Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView("videos");
@@ -98,14 +98,11 @@ public class VideoController {
         if (video == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType("video/mp4"));
         headers.set("Accept-Ranges", "bytes");
-
         long videoSize = video.getVideoData().length;
         String rangeHeader = request.getHeader("Range");
-
         if (rangeHeader != null) {
             String[] ranges = rangeHeader.substring(6).split("-");
             long start = Long.parseLong(ranges[0]);
@@ -115,15 +112,12 @@ public class VideoController {
             }
             headers.set("Content-Range", "bytes " + start + "-" + end + "/" + videoSize);
             headers.setContentLength(end - start + 1);
-
             InputStreamResource videoStream = new InputStreamResource(new ByteArrayInputStream(video.getVideoData(),
                     (int) start, (int) (end - start + 1)));
-
             return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT)
                     .headers(headers)
                     .body(videoStream);
         } else {
-
             InputStreamResource videoStream = new InputStreamResource(new ByteArrayInputStream(video.getVideoData()));
             return ResponseEntity.ok()
                     .headers(headers)

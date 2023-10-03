@@ -21,10 +21,7 @@ public class VideoValidator {
             throw new VideoValidationException("Відео занадто велике. Максимальний розмір: 2 ГБ.");
         }
 
-        String extension = StringUtils.getFilenameExtension("dummy." + video.getVideoData().length);
-        if (!VALID_VIDEO_EXTENSIONS.contains(extension)) {
-            throw new VideoValidationException("Недійсний формат відео. Дозволені лише \"mp3\", \"mp4\", \"mvc\".");
-        }
+
     }
 
 }

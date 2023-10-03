@@ -12,14 +12,19 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserValidator userValidator;
 
-    @Autowired UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
+
+
 
     @Override
     public void newUser(User user) throws IOException {
-        userValidator.validateUser(user);
+        //userValidator.validateUser(user);
         MultipartFile imageMultipartFile = user.getAvatar();
         String base64Image = "data:image/png;base64," + Base64.getEncoder().encodeToString(imageMultipartFile.getBytes());
         user.setAvatar_Base64(base64Image);
+
+
         userRepository.save(user);
     }
 

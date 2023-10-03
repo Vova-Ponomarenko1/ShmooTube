@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Відеотрансляція</title>
+</head>
+<body>
+<h1> відеотрансляція</h1>
+<video id="userVideo" autoplay playsinline></video>
+
+<script>
+  async function startVideoStreaming() {
+    try {
+      const userVideo = document.getElementById("userVideo");
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      userVideo.srcObject = stream;
+    } catch (error) {
+      console.error("Помилка при отриманні доступу до веб-камери та мікрофону:", error);
+    }
+  }
+
+  startVideoStreaming();
+</script>
+</body>
+</html>
+

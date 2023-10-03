@@ -25,32 +25,30 @@
 <script>
   const registrationForm = document.getElementById('registrationForm');
   registrationForm.addEventListener('submit', function (event) {
-    event.preventDefault(); // Зупинити стандартну поведінку форми
+    event.preventDefault();
 
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     const email = document.getElementById('email').value;
-    const avatar = document.getElementById('avatar').files[0]; // Отримати вибраний файл
+    const avatar = document.getElementById('avatar').files[0];
 
     const formData = new FormData();
     formData.append('username', username);
     formData.append('password', password);
     formData.append('email', email);
-    formData.append('avatar', avatar); // Додати файл до FormData
+    formData.append('avatar', avatar);
 
-    fetch('/register', {
+    fetch('/ITube/register', {
       method: 'POST',
       body: formData
     })
             .then(response => response.json())
             .then(data => {
               console.log(data);
-              // Додайте обробник для виведення повідомлення про успішну реєстрацію
               alert('Користувач зареєстрований!');
             })
             .catch(error => {
               console.error('Error:', error);
-              // Додайте обробник для виведення повідомлення про помилку реєстрації
               alert('Помилка реєстрації');
             });
   });

@@ -15,13 +15,13 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException, IOException {
         if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
-            response.sendRedirect("/main");
+            response.sendRedirect("/ITube/headSide");
         } else if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("USER"))) {
-            response.sendRedirect("/main");
+            response.sendRedirect("/ITube/headSide");
         } else if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("COMPOSITOR"))) {
-            response.sendRedirect("/main");
+            response.sendRedirect("/ITube/headSide");
         } else if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("SUPER_ADMIN"))) {
-            response.sendRedirect("/main");
+            response.sendRedirect("/ITube/headSide");
         } else {
             super.onAuthenticationSuccess(request, response, authentication);
         }

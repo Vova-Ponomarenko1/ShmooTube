@@ -42,8 +42,8 @@ public class SecurityConfig implements WebMvcConfigurer {
     @Lazy
     public UserDetailsService userDetailsService() {
         UserDetails user = User.builder()
-            .username("user")
-            .password(passwordEncoder().encode("password"))
+            .username("a")
+            .password(passwordEncoder().encode("a"))
             .roles("USER")
             .build();
         UserDetails seller = User.builder()
@@ -81,7 +81,7 @@ public class SecurityConfig implements WebMvcConfigurer {
         http.csrf().disable().authorizeHttpRequests()
             .requestMatchers("/static/**").permitAll()
             .requestMatchers("/ITube/**").permitAll()
-            .requestMatchers("/new-user**", "/register").permitAll()
+            .requestMatchers("/ITube/new-user**", "/ITube/register").permitAll()
 
 
 

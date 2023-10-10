@@ -15,4 +15,6 @@ public interface VideoRepository {
     List<Thumbnail> getAllThumbnailsWithIds();
 
     Video findVideoInfoById(long videoId);
+
+    List<Thumbnail> findByTitleContainingIgnoreCase(String searchText);
 }

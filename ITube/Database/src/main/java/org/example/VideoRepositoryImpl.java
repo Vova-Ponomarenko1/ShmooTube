@@ -60,6 +60,21 @@ public class VideoRepositoryImpl implements VideoRepository {
         });
     }
 
+    @Override
+    public List<Thumbnail> findByTitleContainingIgnoreCase(String searchText) {
+        String sql = "SELECT * FROM videos WHERE LOWER(title) LIKE LOWER(?)";
+        searchText = "%" + searchText + "%";
+
+        return jdbcTemplate.query(sql, new Object[]{searchText}, (resultSet, rowNum) -> {
+            Thumbnail thumbnail = new Thumbnail();
+            thumbnail.setId(resultSet.getLong("id"));
+            thumbnail.setTitle(resultSet.getString("title"));
+            thumbnail.setThumbnail(resultSet.getBytes("thumbnail"));
+            thumbnail.setUserId(resultSet.getLong("user_id"));
+            return thumbnail;
+        });
+    }
+    @Override
     public long findUserByIdVideo(long videoId) {
         String sql = "SELECT user_id FROM videos WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, Long.class, videoId);

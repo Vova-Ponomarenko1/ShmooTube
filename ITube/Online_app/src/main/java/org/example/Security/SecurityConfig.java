@@ -1,6 +1,5 @@
 package org.example.Security;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -29,8 +28,8 @@ public class SecurityConfig implements WebMvcConfigurer {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         auth.jdbcAuthentication()
             .dataSource(dataSource)
-            .usersByUsernameQuery("SELECT username, password, FROM users WHERE username = ? AND is_banned = false")
-            .authoritiesByUsernameQuery("SELECT username, role FROM users WHERE username = ?")
+            .usersByUsernameQuery("SELECT username, password, true FROM public.users WHERE username = ?")
+            .authoritiesByUsernameQuery("SELECT username, role FROM public.users WHERE username = ?")
             .passwordEncoder(passwordEncoder);
     }
 
@@ -82,9 +81,6 @@ public class SecurityConfig implements WebMvcConfigurer {
             .requestMatchers("/static/**").permitAll()
             .requestMatchers("/ITube/**").permitAll()
             .requestMatchers("/ITube/new-user**", "/ITube/register").permitAll()
-
-
-
 
             .anyRequest().authenticated()
             .and()

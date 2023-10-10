@@ -3,6 +3,7 @@ package org.example;
 import org.example.Users.UserService;
 import org.example.Video.Thumbnail;
 import org.example.Video.VideoRepository;
+import org.example.Video.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -23,15 +24,13 @@ public class HeadSideController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private VideoService videoService;
+
     @GetMapping("/headSide")
     public ModelAndView viewHeadSide(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView("HeadSide");
-        List<Thumbnail> getAllThumbnailsWithId = videoRepository.getAllThumbnailsWithIds();
-        getAllThumbnailsWithId.parallelStream().forEach(thumbnail -> {
-            byte[] thumbnailBytes = thumbnail.getThumbnail();
-            String dataUri = "data:image/png;base64," + Base64.getEncoder().encodeToString(thumbnailBytes);
-            thumbnail.setDataUri(dataUri);
-        });
+        List<Thumbnail> getAllThumbnailsWithId = videoService.updateThumbnailsWithBase64DataUri();
         if (authentication != null && authentication.isAuthenticated()) {
             modelAndView.addObject("hideRegisterButton", true);
         } else {

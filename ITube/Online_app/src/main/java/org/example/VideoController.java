@@ -45,7 +45,7 @@ public class VideoController {
         this.videoService = videoService;
     }
 
-    @GetMapping("/video") // new video
+    @GetMapping("/video")
     public ModelAndView viewVideoPage() {
         return new ModelAndView("UploadVideo");
     }
@@ -58,17 +58,10 @@ public class VideoController {
         videoService.saveVideo(title, description, file, photo);
         return ResponseEntity.ok("Video uploaded successfully.");
     }
-    //УБРАТЬ ДУБЛЯЖ
     @GetMapping("/video/{videoId}")
     public ModelAndView viewVideo(@PathVariable Long videoId, Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView("videos");
-        //додати статус коли відео не знайдено
-        List<Thumbnail> getAllThumbnailsWithId = videoRepository.getAllThumbnailsWithIds();
-        getAllThumbnailsWithId.parallelStream().forEach(thumbnail -> {
-            byte[] thumbnailBytes = thumbnail.getThumbnail();
-            String dataUri = "data:image/png;base64," + Base64.getEncoder().encodeToString(thumbnailBytes);
-            thumbnail.setDataUri(dataUri);
-        });
+        List<Thumbnail> getAllThumbnailsWithId = videoService.updateThumbnailsWithBase64DataUri();
         if (authentication != null && authentication.isAuthenticated()) {
             modelAndView.addObject("hideRegisterButton", true);
         } else {

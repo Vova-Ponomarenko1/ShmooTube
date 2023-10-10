@@ -1,0 +1,79 @@
+/* Стилі для результатів пошуку */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.search-results {
+    padding: 20px;
+}
+
+.search-results h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.video-thumbnail {
+    display: flex;
+    align-items: flex-start;
+    width: 1150px;
+}
+
+.video-thumbnail a {
+    display: flex;
+    text-decoration: none;
+    color: #333;
+}
+
+.video-thumbnail img {
+    width: 300px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.video-thumbnail .thumbnail-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.video-thumbnail .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-top: 10px;
+}
+
+.video-thumbnail .video-title {
+    font-size: 14px;
+    margin: 0;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 50px);
+}
+.overlay {
+    display: flex;
+}
+.video-title{
+    width: auto;
+}
+.user-avatar {
+    padding-top: 30px;
+    padding-left: 10px;
+}
+
+

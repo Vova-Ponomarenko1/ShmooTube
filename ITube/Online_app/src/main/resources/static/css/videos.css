@@ -1,4 +1,3 @@
-/* Загальний контейнер для відео */
 .VideoBox {
     width: 1092px;
     height: 614px;
@@ -11,8 +10,6 @@
     width: 100%;
     height: 100%;
 }
-
-/* Центрування тексту у відеоплеєрі, якщо браузер не підтримує відео */
 #videoPlayer::after {
     content: "Your browser does not support the video tag.";
     position: absolute;
@@ -30,7 +27,6 @@
     color: #333;
 }
 
-/* Стилі для імені автора */
 .user-info {
     display: flex;
     align-items: center;
@@ -57,14 +53,12 @@
     color: #666;
 }
 
-/* Стилі для контейнера з кнопкой */
 .subscribers-bottom-box {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 }
 
-/* Стилі для кнопки */
 .subscribers-bottom {
     background-color: #FF0000;
     color: #FFF;
@@ -80,8 +74,6 @@
     background-color: #CC0000;
 }
 
-
-/* Стилі для блоку рекомендацій */
 .recommendations {
     float: right;
     width: 380px;
@@ -89,8 +81,6 @@
     padding-left: 30px;
 }
 
-
-/* Стилі для мініатюр відео в блоку рекомендацій */
 .recommendations .video-thumbnail {
     display: flex;
     align-items: center;
@@ -114,7 +104,7 @@
 }
 
 .recommendations .video-thumbnail .text-container {
-    flex-grow: 1; /* Займає доступний простір */
+    flex-grow: 1;
 }
 
 .recommendations .video-thumbnail .video-title {
@@ -133,8 +123,6 @@
     white-space: normal;
 }
 
-
-/* Стили для форми комментарів*/
 .comment-form {
     background-color: #F9F9F9;
     border: 1px solid #E0E0E0;
@@ -184,14 +172,9 @@
 .comment-form button:hover {
     background-color: #CC0000;
 }
-
-
-/* Стилі для контейнера коментарів */
 .comments {
     margin-top: 20px;
 }
-
-/* Стилі для окремого коментаря */
 .comment {
     display: flex;
     margin-bottom: 15px;
@@ -222,14 +205,10 @@
     font-size: 14px;
     line-height: 1.4;
 }
-
-/* Стилі для заголовка коментарів */
 .comments h3 {
     font-size: 18px;
     margin-bottom: 10px;
 }
-
-/* Стилі для кнопки завантаження додаткових коментарів (якщо є) */
 .load-more-button {
     display: block;
     margin: 20px auto;
@@ -244,9 +223,6 @@
 .load-more-button:hover {
     background-color: #0056b3;
 }
-
-
-/* Стилі для контейнера опису відео */
 .video-description {
     margin-top: 20px;
     padding: 10px;
@@ -254,23 +230,17 @@
     border-radius: 5px;
     background-color: #f9f9f9;
 }
-
-/* Стилі для короткого опису */
 #short-description {
     font-size: 16px;
     font-weight: bold;
     margin: 0;
 }
-
-/* Стилі для повного опису (прихований за замовчуванням) */
 #full-description {
     font-size: 14px;
     line-height: 1.4;
     margin: 10px 0;
-    display: none; /* Початково ховаємо повний опис */
+    display: none;
 }
-
-/* Стилі для кнопки "Повний опис" */
 #more-button {
     background-color: #33aaff;
     color: #fff;
@@ -286,7 +256,7 @@
 
 #more-button:hover {
     background-color: #707070;
-    transform: scale(1.05); /* Збільшуємо кнопку на 5% при наведенні */
+    transform: scale(1.05);
 }
 
 #more-button:focus {

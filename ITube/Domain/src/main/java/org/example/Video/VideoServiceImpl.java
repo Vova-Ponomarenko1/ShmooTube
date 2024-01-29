@@ -33,13 +33,12 @@ public class VideoServiceImpl implements VideoService {
 
         videoRepository.save(video);
     }
-    public List<Thumbnail> updateThumbnailsWithBase64DataUri() {
-        List<Thumbnail> getAllThumbnailsWithId = videoRepository.getAllThumbnailsWithIds();
-        getAllThumbnailsWithId.parallelStream().forEach(thumbnail -> {
+    public List<Thumbnail> updateThumbnailsWithBase64DataUri(List<Thumbnail> thumbnails) {
+        thumbnails.parallelStream().forEach(thumbnail -> {
             byte[] thumbnailBytes = thumbnail.getThumbnail();
             String dataUri = "data:image/png;base64," + Base64.getEncoder().encodeToString(thumbnailBytes);
             thumbnail.setDataUri(dataUri);
         });
-        return getAllThumbnailsWithId;
+        return thumbnails;
     }
 }

@@ -16,6 +16,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/AdminMenu").setViewName("AdminMenu");
+        registry.addViewController("/ITube/headSide").setViewName("HeadSide");
     }
 }

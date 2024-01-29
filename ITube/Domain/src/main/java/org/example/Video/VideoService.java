@@ -10,7 +10,5 @@ import java.util.List;
 public interface VideoService {
     void saveVideo(String title, String description, MultipartFile file, MultipartFile photo) throws IOException;
 
-    List<Thumbnail> updateThumbnailsWithBase64DataUri();
-
-
+    List<Thumbnail> updateThumbnailsWithBase64DataUri(List<Thumbnail> thumbnails);
 }

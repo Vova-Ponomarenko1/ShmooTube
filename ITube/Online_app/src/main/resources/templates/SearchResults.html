@@ -81,7 +81,9 @@
                             <img th:src="${video.dataUri}" alt="Video Thumbnail" class="video-thumbnail-image" />
                         </div>
                         <div class="overlay">
-                            <img th:src="${video.getUserAvatarBase64()}" alt="User Avatar" class="user-avatar" />
+                            <a th:href="@{'/ITube/user/' + ${video.userId}}">
+                                <img th:src="${video.getUserAvatarBase64()}" alt="User Avatar" class="user-avatar" />
+                            </a>
                             <h3 th:text="${video.title}" th:maxlength="65" class="video-title"></h3>
                         </div>
                     </div>

@@ -13,13 +13,15 @@ public class VideoValidator {
     private static final List<String> VALID_VIDEO_EXTENSIONS = Arrays.asList("mp3", "mp4", "mvc");
     public void videoValidate(Video video) throws VideoValidationException {
         if (video == null || video.getVideoData().length == 0) {
-            throw new VideoValidationException("Відео не існує.");
+            throw new VideoValidationException("The video does not exist.");
         }
 
         long maxVideoSizeInBytes = 2L * 1024 * 1024 * 1024; // 2 ГБ
         if (video.getVideoData().length > maxVideoSizeInBytes) {
-            throw new VideoValidationException("Відео занадто велике. Максимальний розмір: 2 ГБ.");
+            throw new VideoValidationException("The video is too big. Maximum size: 2 GB.");
         }
+
+
 
 
     }

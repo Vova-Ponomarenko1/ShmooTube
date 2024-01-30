@@ -1,4 +1,8 @@
 ># Changelog
+> # [0.0.2] - 30.01.2024
+> The user page web page has been tweaked to make it more visually pleasing
+> A simple refactoring was carried out
+> Added creative user studio
 ># [0.0.1] - 10.10.2023
 >- Removed duplicate code in the HeadSideController and VideoController.
 >- Fixed authentication error (when the user couldn't log into the account).

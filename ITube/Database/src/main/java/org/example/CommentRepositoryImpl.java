@@ -18,7 +18,6 @@ public class CommentRepositoryImpl implements CommentRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-
     @Override
     public void addNewComment(Comment comment) {
         String sql = "INSERT INTO comments (video_id, user_id, text) VALUES (?, ?, ?)";
@@ -31,8 +30,8 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public List<Comment> findByVideoId(Long videoId, int page) {
-        int pageSize = 3;  // Кількість коментарів на одній сторінці
-        int offset = (page - 1) * pageSize;  // Обчислення значення OFFSET
+        int pageSize = 3;
+        int offset = (page - 1) * pageSize;
 
         String sql = "SELECT c.comment_id AS comment_id, c.user_id, c.video_id, c.text, u.avatar_base64, u.username" +
             " AS commentator_name " +

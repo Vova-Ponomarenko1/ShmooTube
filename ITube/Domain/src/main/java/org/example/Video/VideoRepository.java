@@ -10,11 +10,15 @@ public interface VideoRepository {
 
     Video findVideoDataById(long videoId);
 
-    long findUserByIdVideo(long videoId); //знаходить всю інфу про юзера
+    long findUserByIdVideo(long videoId); //all info
 
     List<Thumbnail> getAllThumbnailsWithIds();
 
     Video findVideoInfoById(long videoId);
 
     List<Thumbnail> findByTitleContainingIgnoreCase(String searchText);
+
+    List<Thumbnail> findVideoThumbnailByUserId(long userId);
+
+    List<Thumbnail> findMoreVideosByLastVideoIdAndUserId(long lastVideoId, long userId);
 }

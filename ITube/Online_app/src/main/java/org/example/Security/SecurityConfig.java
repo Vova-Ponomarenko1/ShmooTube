@@ -78,6 +78,8 @@ public class SecurityConfig implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeHttpRequests()
+            .requestMatchers("/ws").permitAll()
+            .requestMatchers("/ws/**").permitAll()
             .requestMatchers("/static/**").permitAll()
             .requestMatchers("/ITube/**").permitAll()
             .requestMatchers("/ITube/new-user**", "/ITube/register").permitAll()

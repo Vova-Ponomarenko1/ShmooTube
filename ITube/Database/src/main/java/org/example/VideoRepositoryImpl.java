@@ -40,7 +40,8 @@ public class VideoRepositoryImpl implements VideoRepository {
                 video.setVideoData(resultSet.getBytes("video_data"));
                 return video;
             } else {
-                return null; // Відео з вказаним ідентифікатором не знайдено (костиль)
+                //Todo Відео з вказаним ідентифікатором не знайдено (костиль)
+                return null;
             }
         });
     }
@@ -55,7 +56,7 @@ public class VideoRepositoryImpl implements VideoRepository {
                 video.setDescription(resultSet.getString("description"));
                 return video;
             } else {
-                return null; // Відео з вказаним ідентифікатором не знайдено (костиль)
+                return null; // Todo Відео з вказаним ідентифікатором не знайдено (костиль)
             }
         });
     }
@@ -74,6 +75,38 @@ public class VideoRepositoryImpl implements VideoRepository {
             return thumbnail;
         });
     }
+
+    @Override
+    public List<Thumbnail> findVideoThumbnailByUserId(long userId) {
+        String sql = "SELECT id, thumbnail, title FROM videos WHERE user_id = ?";
+
+       return jdbcTemplate.query( sql, new Object[]{userId}, (resultSet, rowNum) -> {
+                Thumbnail thumbnail = new Thumbnail();
+                thumbnail.setId(resultSet.getLong("id"));
+                thumbnail.setThumbnail(resultSet.getBytes("thumbnail"));
+                thumbnail.setTitle(resultSet.getString("title"));;
+                return thumbnail;
+            }
+        );
+    }
+
+    @Override
+    public List<Thumbnail> findMoreVideosByLastVideoIdAndUserId(long lastVideoId, long userId) {
+        String sql = "SELECT id, thumbnail, title FROM videos WHERE id > ? " +
+            "AND user_id = ? " +
+            "LIMIT 4";
+
+        return jdbcTemplate.query(sql, new Object[] {lastVideoId, userId},
+            (resultSet, rowNum) -> {
+                Thumbnail thumbnail = new Thumbnail();
+                thumbnail.setId(resultSet.getLong("id"));
+                thumbnail.setThumbnail(resultSet.getBytes("thumbnail"));
+                thumbnail.setTitle(resultSet.getString("title"));
+                return thumbnail;
+            }
+        );
+    }
+
     @Override
     public long findUserByIdVideo(long videoId) {
         String sql = "SELECT user_id FROM videos WHERE id = ?";

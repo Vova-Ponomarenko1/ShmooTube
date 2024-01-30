@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>channel</title>
-  <link rel="stylesheet" href="/static/css/userProfile.css">
+    <link rel="stylesheet" href="/static/css/userProfile.css">
     <link rel="stylesheet" href="/static/css/header.css">
     <script src="/static/js/HederScript.js"></script>
 </head>
@@ -68,6 +68,7 @@
     </div>
   </div>
 </header>
+<!-- навігація -->
 <div class="sidebar">
   <!-- посилання для навігації -->
   <ul>
@@ -85,14 +86,178 @@
 <div class="channel-content">
   <div class="user-channel-banner">
     <img th:src="${userAvatar}" alt="GameOver:/">
-    <p class="user-name" th:text="${userName}"></p>
-    <p class="subscribers"></p>
+    <div class="content-user">
+      <p class="user-name" th:text="${userName}"></p>
+      <div class="user-info">
+        <p class="subscribers">54654 подписчика</p><!--fake info-->
+        <p class="count-video">56 видео</p> <!--fake info-->
+      </div>
+      <p class="description">fake info </p><!--fake info-->
+    </div>
+  </div>
+  <div class="yt-tabs">
+    <div class="yt-tab active" onclick="showMainTab()">Главная</div>
+    <div class="yt-tab" onclick="showVideoTab()">Видео</div>
+    <div class="yt-tab">Shorts</div>
+    <div class="yt-tab">Трансляції</div>
+    <div class="yt-tab">Плейлисти</div>
+    <div class="yt-tab" onclick="showCommunityTab()">Сообщество</div>
+    <div class="yt-tab">Канали</div>
+    <div class="yt-tab">Про&nbsp;канал</div>
+    <div class="yt-tab yt-search-tab">
+      <button aria-label="Поиск">
+        <yt-icon icon="yt-icons:search"></yt-icon>
+      </button>
+      <form action="/@garage_54/search">
+        <input type="text" name="query" placeholder="Поиск" />
+      </form>
+    </div>
+  </div>
+</div>
+<div id="tabs-divider" class="style-scope"> </div>
+
+
+
+<div class="main-content" id="main-content">
+  <div class="video-list">
+    <div class="slider">
+      <div th:each="video : ${videoList}" class="video-thumbnail">
+        <a th:href="@{'/ITube/video/' + ${video.id}}">
+          <img th:src="${video.dataUri}" alt="Video Thumbnail" width="214" height="210" />
+          <h3 th:text="${video.title}" th:maxlength="42"></h3>
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 
+<div class="video-content" id="video-content" th:data-user-id="${userId}" th:data-last-video-id="0">
+  <div class="video-rows">
+    <div th:each="videos : ${videoLists}" class="thumbnail-video-">
+      <a th:href="@{'/ITube/video/' + ${videos.id}}">
+        <img th:src="${videos.dataUri}" alt="Video Thumbnail" />
+        <h3 th:text="${videos.title}" th:maxlength="65"></h3>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Реалізувати голосовалку!!
+<div id="community-content" style="display: none;">
+  <div class="community-message">
+    <h3 class="message-title"></h3>
+    <p class="message-text"></p>
+  </div>
+  <div class="content-img">
+
+  </div>
+  <div content="content-video">
+    <a th:href="@{'/ITube/video/' + ${videos.id}}">
+      <img th:src="${videos.dataUri}" alt="Video Thumbnail" />
+      <h3 th:text="${videos.title}" th:maxlength="65"></h3>
+    </a>
+  </div>
+</div>
+-->
 
 
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const tabs = document.querySelectorAll(".yt-tab");
+    const contentContainers = document.querySelectorAll(".main-content");
 
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", function() {
+        tabs.forEach((t) => t.classList.remove("active"));
+        tab.classList.add("active");
+        contentContainers.forEach((container) => {
+          container.style.display = "none";
+        });
+
+        contentContainers[index].style.display = "block";
+      });
+    });
+  });
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+    let loading = false;
+    let userId = document.querySelector('#video-content').getAttribute("data-user-id");
+    let videoTabClicked = false;
+    let videosToLoad = 4;
+
+    const tabs = document.querySelectorAll('.yt-tab');
+
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        if (tab.textContent.trim() === 'Видео') {
+          videoTabClicked = true;
+        }
+      });
+    });
+
+    function loadMoreVideos() {
+      if (videoTabClicked && !loading) {
+        loading = true;
+        const lastVideoId = document.querySelector('#video-content').getAttribute("data-last-video-id");
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `/ITube/loadMore?lastVideoId=${lastVideoId}&userID=${userId}`, true);
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+
+            if (response.length > 0) {
+              const videoRows = document.querySelector('#video-content .video-rows');
+              if (videoRows.children.length >= videosToLoad) {
+                const newVideoRows = document.createElement('div');
+                newVideoRows.className = 'video-rows';
+                document.querySelector('#video-content').appendChild(newVideoRows);
+              }
+
+              response.forEach(function(video) {
+                const videoElement = '<div class="thumbnail-video-">' +
+                        '<a href="/ITube/video/' + video.id + '">' +
+                        '<img src="' + video.dataUri + '" alt="Video Thumbnail" />' +
+                        '<h3>' + video.title + '</h3>' +
+                        '</a>' +
+                        '</div>';
+                const currentVideoRows = document.querySelector('#video-content .video-rows:last-child');
+                currentVideoRows.insertAdjacentHTML('beforeend', videoElement);
+              });
+
+              const newLastVideoId = response[response.length - 1].id;
+              document.querySelector('#video-content').setAttribute("data-last-video-id", newLastVideoId);
+            }
+            loading = false;
+          }
+        };
+        xhr.send();
+      }
+    }
+
+    window.addEventListener('scroll', function() {
+      if (videoTabClicked && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 100) {
+        loadMoreVideos();
+      }
+    });
+  });
+  function showMainTab() {
+    const videoContent = document.querySelector('#video-content');
+    videoContent.style.display = 'none';
+  }
+
+  function showVideoTab() {
+    const videoContent = document.querySelector('#video-content');
+    videoContent.style.display = 'block';
+  }
+
+  function showCommunityTab() {
+    const videoContent = document.querySelector('#video-content');
+    videoContent.style.display = 'none';
+    const communityContent = document.querySelector('#community-content');
+    communityContent.style.display = 'block';
+  }
+</script>
 
 
 

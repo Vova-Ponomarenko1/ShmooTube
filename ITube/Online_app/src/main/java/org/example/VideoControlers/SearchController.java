@@ -1,4 +1,4 @@
-package org.example;
+package org.example.VideoControlers;
 
 import org.example.Search.SearchService;
 import org.example.Video.Thumbnail;

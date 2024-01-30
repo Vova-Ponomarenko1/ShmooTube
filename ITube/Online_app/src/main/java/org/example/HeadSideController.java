@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Base64;
 import java.util.List;
 
 @RestController
@@ -30,7 +29,9 @@ public class HeadSideController {
     @GetMapping("/headSide")
     public ModelAndView viewHeadSide(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView("HeadSide");
-        List<Thumbnail> getAllThumbnailsWithId = videoService.updateThumbnailsWithBase64DataUri();
+        List<Thumbnail> getAllThumbnailsWithId = videoService.updateThumbnailsWithBase64DataUri(
+            videoRepository.getAllThumbnailsWithIds());
+
         if (authentication != null && authentication.isAuthenticated()) {
             modelAndView.addObject("hideRegisterButton", true);
         } else {

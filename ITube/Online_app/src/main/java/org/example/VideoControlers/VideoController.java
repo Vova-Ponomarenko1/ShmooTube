@@ -1,4 +1,4 @@
-package org.example;
+package org.example.VideoControlers;
 
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -31,7 +30,7 @@ import java.util.concurrent.Executors;
 @RequestMapping("/ITube")
 public class VideoController {
     @Autowired
-    private  VideoService videoService;
+    private VideoService videoService;
     private final ExecutorService executorService = Executors.newFixedThreadPool(10);
 
     @Autowired
@@ -61,7 +60,9 @@ public class VideoController {
     @GetMapping("/video/{videoId}")
     public ModelAndView viewVideo(@PathVariable Long videoId, Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView("videos");
-        List<Thumbnail> getAllThumbnailsWithId = videoService.updateThumbnailsWithBase64DataUri();
+        List<Thumbnail> getAllThumbnailsWithId = videoService.updateThumbnailsWithBase64DataUri(
+            videoRepository.getAllThumbnailsWithIds());
+
         if (authentication != null && authentication.isAuthenticated()) {
             modelAndView.addObject("hideRegisterButton", true);
         } else {
@@ -116,9 +117,6 @@ public class VideoController {
                     .headers(headers)
                     .body(videoStream);
         }
-    }, executorService);
+        }, executorService);
     }
-
-
-
 }

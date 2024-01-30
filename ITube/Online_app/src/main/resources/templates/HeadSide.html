@@ -83,7 +83,6 @@
 <!-- Основний контент сторінки -->
 <div class="main-content">
   <div class="video-list">
-    <!-- Вставка списку відео-->
     <div th:each="video : ${videoList}" class="video-thumbnail">
       <a th:href="@{'/ITube/video/' + ${video.id}}">
         <img th:src="${video.dataUri}" alt="Video Thumbnail" />
@@ -94,9 +93,6 @@
   </div>
 </div>
 
-
-<!-- Підвал-->
-<footer></footer>
 
 <script>
 </script>

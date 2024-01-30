@@ -1,10 +1,7 @@
-/* Загальні стилі */
 body {
     font-family: Arial, sans-serif;
 
 }
-
-/* Стилі для мініатюр відео (video-thumbnail) */
 .video-list {
     display: flex;
     flex-wrap: wrap;

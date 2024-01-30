@@ -1,0 +1,257 @@
+.userAvatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    top: -15px;
+}
+.style-scope {
+    font-family: Arial, sans-serif;
+}
+.file-upload-container {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.file-upload-animation {
+
+}
+
+.label {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.sublabel {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.error-area {
+    margin-bottom: 20px;
+    color: #ff0000;
+}
+
+.warning-icon {
+    color: #ff0000;
+}
+
+.file-upload-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.file-upload-button:hover {
+    background-color: #45a049;
+}
+
+.disclaimer {
+    font-size: 12px;
+    color: #666;
+    margin-top: 10px;
+}
+
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.popup.show {
+    display: block;
+}
+
+.popup-overlay.show {
+    display: block;
+}
+
+.popup-container {
+    text-align: center;
+}
+
+.popup:checked + .popup-overlay {
+    display: block;
+}
+
+.popup:checked + .popup-overlay + .popup {
+    display: block;
+}
+
+.upload-popup-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-width: 400px;
+    width: 100%;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-form label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.upload-form input,
+.upload-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.upload-form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.upload-form button:hover {
+    background-color: #45a049;
+}
+
+#previewContainer {
+    margin-top: 10px;
+    display: none; /* На майбутнє */
+}
+
+.preview-image {
+    max-width: 100%;
+    max-height: 200px;
+    margin-top: 10px;
+}
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+#videoTitle {
+    padding-right: 30px;
+}
+
+.icon-container {
+    position: absolute;
+    top: 56%;
+    right: 2px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: black;
+    border-radius: 50%;
+}
+
+.help-icon {
+    font-size: 1.5em;
+}
+
+.tooltip {
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    display: none;
+    z-index: 1;
+    width: 200px;
+    top: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.tooltip-top {
+    top: -590%;
+}
+
+.tooltip-bottom {
+    top: 120%;
+}
+
+
+body {
+    background-color: #1f1f1f;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.main-container {
+    display: flex;
+    margin-left: 16%;
+    transition: margin-left 0.3s ease;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 400px;
+    height: 100vh;
+}
+
+
+.channel-control-panel {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.box-img-cameramen {
+    margin-bottom: 20px;
+}
+
+.box-img-cameramen img {
+    max-width: 100%;
+    height: auto;
+}
+
+.box-info {
+    max-width: 500px;
+    text-align: center;
+}
+
+.box-input-video-text {
+    font-size: 1.2em;
+    line-height: 1.5;
+}

@@ -22,8 +22,6 @@ header {
     object-fit: cover;
     margin-right: 10px;
 }
-
-/* Стилі для поля пошуку та кнопки "Find" */
 .search-form {
     display: flex;
     justify-content: center;
@@ -56,8 +54,6 @@ header {
     background-color: #cc0000;
 }
 
-
-/* Стилі для кнопки в шапці */
 .logo-Itybe {
     float: left;
     flex-shrink: 0;
@@ -70,10 +66,7 @@ header {
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    /*margin-right: -400px;*/
 }
-
-/* Стилі для бокової навігації */
 .sidebar {
     width: 0;
     height: 100%;
@@ -108,22 +101,19 @@ header {
     background-color: #555;
 }
 
-/* Стилі для контенту */
 .content {
     margin-left: 250px;
     padding: 20px;
     transition: 0.5s;
 }
 
-/* Стилі для відкритої бокової навігації */
 .sidebar.open {
-    width: 130px;
+    width: 16%;
 }
 
 .content.open {
     margin-left: 0;
 }
-/* Стилі для кнопок реєстрації і входу */
 nav ul {
     list-style-type: none;
     padding: 0;
@@ -161,20 +151,16 @@ nav a.register:hover {
 nav a.login:hover {
     background-color: #cc0000;
 }
-
-/* Стиль для контейнера аватарки */
 .header-avatar-user {
-    position: relative; /* Забезпечуємо позиціонування для аватарки */
+    position: relative;
 }
-
-/* Стиль для зображення аватарки */
 #userAvatar {
-    width: 32px; /* Задаємо ширину 32px */
-    height: 32px; /* Задаємо висоту 32px */
-    border-radius: 50%; /* Робимо зображення круглим */
-    position: absolute; /* Забезпечуємо позиціонування */
-    right: 0; /* Розміщуємо справа */
-    top: -15px; /* Піднімаємо аватарку вгору на 10px */
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    position: absolute;
+    right: 0; /
+    top: -15px;
 }
 
 

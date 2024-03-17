@@ -1,5 +1,6 @@
 package org.example.StudioControllers;
 
+import org.example.Security.AuthenticationHandler;
 import org.example.Users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.AccessType;
@@ -11,14 +12,21 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 public class StudioController {
-    @Autowired
+
     private UserService userService;
+    private AuthenticationHandler authenticationHandler;
+    @Autowired
+    public StudioController(UserService userService,
+                            AuthenticationHandler authenticationHandler) {
+        this.userService = userService;
+        this.authenticationHandler = authenticationHandler;
+    }
 
     @GetMapping("/my/studio")
     public ModelAndView viewStudioPage(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView("Studio");
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        long userId = userService.getUserIdByUsername(userDetails.getUsername());
+        long userId = authenticationHandler.getUserIdFromAuthentication(authentication);
         String userAvatar = userService.getUserAvatarById(userId);
 
         modelAndView.addObject("userAvatar", userAvatar);

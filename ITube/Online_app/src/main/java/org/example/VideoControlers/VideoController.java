@@ -2,8 +2,11 @@ package org.example.VideoControlers;
 
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.example.LikeAndSubscriber.SubscribersRepository;
+import org.example.Security.AuthenticationHandler;
 import org.example.Users.User;
 import org.example.Users.UserRepository;
+import org.example.Users.UserService;
 import org.example.Video.Thumbnail;
 import org.example.Video.Video;
 import org.example.Video.VideoRepository;
@@ -29,19 +32,24 @@ import java.util.concurrent.Executors;
 @RestController
 @RequestMapping("/ITube")
 public class VideoController {
-    @Autowired
     private VideoService videoService;
     private final ExecutorService executorService = Executors.newFixedThreadPool(10);
-
-    @Autowired
     private VideoRepository videoRepository;
-
-    @Autowired
     private UserRepository userRepository;
 
+    private UserService userService;
+
+    private SubscribersRepository subscribersRepository;
+
+    private AuthenticationHandler authenticationHandler;
     @Autowired
-    public VideoController(VideoService videoService) {
+    public VideoController(VideoService videoService, VideoRepository videoRepository, UserRepository userRepository, UserService userService, SubscribersRepository subscribersRepository, AuthenticationHandler authenticationHandler) {
         this.videoService = videoService;
+        this.videoRepository = videoRepository;
+        this.userRepository = userRepository;
+        this.userService = userService;
+        this.subscribersRepository = subscribersRepository;
+        this.authenticationHandler = authenticationHandler;
     }
 
     @GetMapping("/video")
@@ -62,15 +70,22 @@ public class VideoController {
         ModelAndView modelAndView = new ModelAndView("videos");
         List<Thumbnail> getAllThumbnailsWithId = videoService.updateThumbnailsWithBase64DataUri(
             videoRepository.getAllThumbnailsWithIds());
+        long userId = videoRepository.findUserByIdVideo(videoId);
 
         if (authentication != null && authentication.isAuthenticated()) {
+            Long subscriberId = authenticationHandler.getUserIdFromAuthentication(authentication);
+            modelAndView.addObject("subscribersButton", subscribersRepository
+                .isUserSubscribed(userId, subscriberId));
+
             modelAndView.addObject("hideRegisterButton", true);
         } else {
+            modelAndView.addObject("subscribersButton", false);
             modelAndView.addObject("hideRegisterButton", false);
         }
 
-        User userInfo = userRepository.findById(videoRepository.findUserByIdVideo(videoId));
+        User userInfo = userRepository.findById(userId);
         Video videoInfo = videoRepository.findVideoInfoById(videoId);
+        userInfo.setId(userId);
 
         modelAndView.addObject("userInfo", userInfo);
         modelAndView.addObject("videoInfo", videoInfo);
@@ -85,9 +100,6 @@ public class VideoController {
     public CompletableFuture<ResponseEntity<InputStreamResource>> getVideo(@PathVariable Long videoId,
             HttpServletRequest request) {
         return CompletableFuture.supplyAsync(() -> {
-            long threadId = Thread.currentThread().getId();
-            System.out.println("Thread ID: " + threadId);
-
         Video video = videoRepository.findVideoDataById(videoId);
         if (video == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

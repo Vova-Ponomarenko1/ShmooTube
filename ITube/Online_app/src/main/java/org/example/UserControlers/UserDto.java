@@ -1,7 +1,8 @@
 package org.example.UserControlers;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-
+@Component
 public class UserDto {
     private String username;
     private String password;

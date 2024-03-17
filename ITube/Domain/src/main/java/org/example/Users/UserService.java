@@ -10,5 +10,6 @@ public interface UserService {
     void newUser(User user) throws IOException;
 
     Long getUserIdByUsername(String username);
+    Long getUserIdByUserEmail(String email);
     String getUserAvatarById(Long userId);
 }

@@ -57,6 +57,17 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
     @Override
+    public Long getUserIdByUserEmail(String email) {
+        String sql = "SELECT id FROM users WHERE email = ?";
+        Object[] params = { email };
+        try {
+            return jdbcTemplate.queryForObject(sql, params, Long.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    @Override
     public String getUserAvatarById(Long userId) {
         String sql = "SELECT avatar_base64 FROM users WHERE id = ?";
         Object[] params = { userId };

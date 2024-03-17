@@ -11,5 +11,7 @@ public interface UserRepository {
 
     Long getUserIdByUsername(String username);
 
+    Long getUserIdByUserEmail(String email);
+
     String getUserAvatarById(Long userId);
 }

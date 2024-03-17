@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.Security.AuthenticationHandler;
 import org.example.Users.UserService;
 import org.example.Video.Thumbnail;
 import org.example.Video.VideoRepository;
@@ -17,14 +18,18 @@ import java.util.List;
 @RequestMapping("/ITube")
 public class HeadSideController {
 
-    @Autowired
     private VideoRepository videoRepository;
-
-    @Autowired
     private UserService userService;
-
-    @Autowired
     private VideoService videoService;
+    private AuthenticationHandler authenticationHandler;
+    @Autowired
+    public HeadSideController(VideoRepository videoRepository, UserService userService,
+                              VideoService videoService, AuthenticationHandler authenticationHandler) {
+        this.videoRepository = videoRepository;
+        this.userService = userService;
+        this.videoService = videoService;
+        this.authenticationHandler = authenticationHandler;
+    }
 
     @GetMapping("/headSide")
     public ModelAndView viewHeadSide(Authentication authentication) {
@@ -43,8 +48,7 @@ public class HeadSideController {
 
     @GetMapping("/getUserAvatar")
     public ResponseEntity<String> getUserAvatar(Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        Long userId = userService.getUserIdByUsername(userDetails.getUsername());
+        Long userId =  authenticationHandler.getUserIdFromAuthentication(authentication);
         String avatar = userService.getUserAvatarById(userId);
 
         if (avatar != null) {

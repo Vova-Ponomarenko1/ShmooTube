@@ -30,13 +30,31 @@
     <nav th:if="${not hideRegisterButton}">
       <ul>
         <li>
-          <a class="register" href="/new-user">Sign up</a>
+          <a class="register" href="#" onclick="openPopup('register')">Sign up</a>
         </li>
-        <li >
-          <a class="login" href="/login">Log in</a>
+        <li>
+          <a class="login" href="#" onclick="openPopup('login')">Log in</a>
         </li>
       </ul>
     </nav>
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <nav>
+          <ul>
+            <li>
+              <a class="showLoginForm" href="/ITube/new-user" onclick="openPopup('register')">Sign up</a>
+            </li>
+            <li>
+              <a class="showRegistrationForm" href="/login" >Log in</a>
+            </li>
+            <li>
+              <a class="loginWithGoogle" href="/ITube/googleLogin">Login with Google</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
 
     <div class="header-avatar-user" th:if="${hideRegisterButton}">
       <img th:src="${avatarUrl}" alt="Avatar" id="userAvatar">
@@ -75,9 +93,9 @@
 <div class="sidebar">
   <!-- посилання для навігації -->
   <ul>
-    <li><a href="/home">Головна</a></li>
+    <li><a href="/ITube/headSide">Головна</a></li>
     <li><a href="/about">Про нас</a></li>
-    <li><a href="/contact">Контакти</a></li>
+    <li><a href="/contact">Мої вподобайки</a></li>
   </ul>
 </div>
 <!-- Основний контент сторінки -->

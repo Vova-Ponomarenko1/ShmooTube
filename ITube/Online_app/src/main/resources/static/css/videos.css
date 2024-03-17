@@ -224,7 +224,7 @@
     background-color: #0056b3;
 }
 .video-description {
-    margin-top: 20px;
+    margin-top: 40px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -262,6 +262,53 @@
 #more-button:focus {
     outline: none;
 }
+
+.interaction-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.subscribers-bottom-box {
+    margin-right: auto;
+}
+
+.like_video-box {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: -5%;
+}
+
+
+.like-button:active, .dislike-button:active {
+    transform: scale(0.95);
+}
+
+.like-button, .dislike-button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #606060;
+    background-color: #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+.like-button i, .dislike-button i {
+    font-size: 20px;
+}
+
+.like-button:active i, .dislike-button:active i {
+    color: #2d9bf0;
+}
+
+.like-button.active i::before {
+    background-color: #2d9bf0;
+}
+
+
 
 
 

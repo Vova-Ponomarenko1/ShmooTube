@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="/static/css/header.css">
   <link rel="stylesheet" href="/static/css/videos.css">
+
+  <script src="https://kit.fontawesome.com/b547556e5c.js" crossorigin="anonymous"></script>
   <script src="/static/js/HederScript.js"></script>
   <title>Відео</title>
 
@@ -90,9 +92,22 @@
         <p class="username" th:text="${userInfo.getUsername()}">Author Name</p>
         <p class="subscribers">10</p>
       </div>
-      <div class="subscribers-bottom-box">
-        <button class="subscribers-bottom">subscribers</button>
+      <div class="interaction-box">
+        <div class="subscribers-bottom-box">
+          <button class="subscribers-bottom" th:if="${userInfo.getId() != null}" th:data-user-id="${userInfo.getId()}"
+                  th:onclick="'subscribers(\'' + ${userInfo.getId()} + '\')'">
+            <span th:text="${subscribersButton ? 'Unsubscribe' : 'Subscribe'}"></span>
+          </button>
+        </div>
       </div>
+    </div>
+    <div class="like_video-box">
+      <button id="like_button" class="like-button" onclick="likeVideo()">
+        <i class="fa-regular fa-thumbs-up" style="color: #d60aff;"></i>
+      </button>
+      <button id="dislike_button" class="dislike-button" onclick="dislikeVideo()" >
+        <i class="fa-regular fa-thumbs-up fa-rotate-180" style="color: #000000;"></i>
+      </button>
     </div>
   </div>
 
@@ -100,7 +115,6 @@
     <p></p>
     <p id="short-description">Опис</p>
     <p id="full-description" class="collapsed" th:text="${videoInfo.getDescription()}">
-
     </p>
     <button id="more-button">Повний опис</button>
   </div>

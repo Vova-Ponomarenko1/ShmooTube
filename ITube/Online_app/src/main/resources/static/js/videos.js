@@ -1,6 +1,5 @@
 //опис
 document.addEventListener("DOMContentLoaded", function () {
-    const shortDescription = document.getElementById("short-description");
     const fullDescription = document.getElementById("full-description");
     const moreButton = document.getElementById("more-button");
 
@@ -54,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("Помилка при відправкі комментарія", error);
             });
     });
+
 });
 
 function extractVideoIdFromUrl(url) {
@@ -97,9 +97,100 @@ function loadMoreComments() {
         });
 }
 
+function likeVideo() {
+    const videoLike = {
+        videoId: videoId,
+    };
+
+    fetch('/ITube/likeVideo', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(videoLike)
+    })
+        .then(response => {
+            if (response.ok) {
+                console.log('Лайк отправлен на сервер');
+            } else {
+                console.error('Ошибка при отправке лайка на сервер');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
+}
+
+function dislikeVideo() {
+    const videoLike = {
+        videoId: videoId,
+    };
+
+    fetch('/ITube/dislikeVideo', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(videoLike)
+    })
+        .then(response => {
+            if (response.ok) {
+                console.log('Лайк отправлен на сервер');
+            } else {
+                console.error('Ошибка при отправке лайка на сервер');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
+}
+
+function subscribers(userId) {
+
+    console.log(userId);
+    fetch(`/ITube/subscriber/${userId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (response.ok) {
+                console.log('Подписка оформлена успешно');
+            } else {
+                console.error('Ошибка при оформлении подписки');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
+}
+
+
 window.addEventListener("scroll", function () {
     if (window.innerHeight + window.scrollY >= document.documentElement.offsetHeight - 100) {
         loadMoreComments();
     }
+});
+
+document.getElementById("subscribersButton").addEventListener("click", function() {
+    const userId = this.dataset.userId;
+    console.log(userId);
+    fetch(`/ITube/subscriber/${userId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (response.ok) {
+                console.log('Подписка оформлена успешно');
+            } else {
+                console.error('Ошибка при оформлении подписки');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
 });
 

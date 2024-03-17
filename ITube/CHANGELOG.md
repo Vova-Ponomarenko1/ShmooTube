@@ -1,4 +1,8 @@
 ># Changelog
+> # [0.0.3] - 17.03.2024 UNSTABLE
+> Implemented functionality for video subscriptions, likes, and dislikes.
+> Added Google authentication system
+> Minor changes have been made to the code
 > # [0.0.2] - 30.01.2024
 > The user page web page has been tweaked to make it more visually pleasing
 > A simple refactoring was carried out

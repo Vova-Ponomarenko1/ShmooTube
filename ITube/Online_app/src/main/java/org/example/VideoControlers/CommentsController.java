@@ -1,7 +1,8 @@
-package org.example;
+package org.example.VideoControlers;
 
 import org.example.Comments.Comment;
 import org.example.Comments.CommentService;
+import org.example.Security.AuthenticationHandler;
 import org.example.Users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,11 +15,17 @@ import java.util.List;
 @RequestMapping("/ITube")
 public class CommentsController {
 
-    @Autowired
     private UserService userService;
-
-    @Autowired
     private CommentService commentService;
+    private AuthenticationHandler authenticationHandler;
+    @Autowired
+    public CommentsController(UserService userService, CommentService commentService,
+                              AuthenticationHandler authenticationHandler) {
+        this.userService = userService;
+        this.commentService = commentService;
+        this.authenticationHandler = authenticationHandler;
+    }
+
     @ResponseBody
     @GetMapping("/video/{videoId}/comments")
     public List<Comment> getComments(@PathVariable Long videoId,
